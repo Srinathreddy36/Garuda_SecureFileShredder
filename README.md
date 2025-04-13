@@ -29,6 +29,13 @@ Garuda Secure File Shredder is an **offline secure file deletion tool** built un
 
 - Python 3.6+
 - [cryptography](https://pypi.org/project/cryptography/)
+
+
+```bash
+pip install cryptography
+🧪 How to Use
+python secure_file_deleter.py
+
 📂 Enter file path to delete: secrets.txt
 🔐 Set a password to encrypt the deletion log: ********
 ✅ File securely deleted.
@@ -36,10 +43,4 @@ Garuda Secure File Shredder is an **offline secure file deletion tool** built un
 🔑 Enter password to decrypt the log: ********
 📜 Deletion Log:
 File 'secrets.txt' was securely deleted at 2025-04-12 08:43:12
-
-
-```bash
-pip install cryptography
-🧪 How to Use
-python secure_file_deleter.py
 
