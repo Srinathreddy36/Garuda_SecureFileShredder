@@ -1,0 +1,58 @@
+📄 Garuda Secure File Shredder - Line-by-Line Explanation
+
+---------------------------------------------
+🔐 Imports & Libraries Used
+---------------------------------------------
+- `os`: File operations and random byte generation.
+- `time`: For generating a timestamp when file is deleted.
+- `base64`: Encoding binary data (like AES IV and ciphertext).
+- `cryptography`: Provides tools for AES encryption, padding, hashing, and key derivation.
+
+---------------------------------------------
+🔐 encrypt_log(log_text, password)
+---------------------------------------------
+- Encrypts the log using AES-CBC derived from a password.
+- Generates a 16-byte salt and IV.
+- Uses PBKDF2HMAC with SHA-256 to derive a secure key from the password.
+- Pads the log text to be AES-compliant using PKCS7.
+- Encrypts the log and writes salt + IV + ciphertext to 'deletion_log.secure'.
+
+---------------------------------------------
+🧹 secure_delete(file_path)
+---------------------------------------------
+- Securely deletes a file by:
+  1. Checking if the file exists.
+  2. Overwriting it 3 times with random bytes.
+  3. Deleting it using os.remove().
+- Generates a log message with timestamp and returns it.
+
+---------------------------------------------
+🔓 decrypt_log(password)
+---------------------------------------------
+- Reads 'deletion_log.secure' and extracts:
+  - Salt (16B)
+  - IV (16B)
+  - Ciphertext (remaining bytes)
+- Re-derives the AES key using the same salt and password.
+- Decrypts and unpads the log message.
+- Prints the original deletion log.
+
+---------------------------------------------
+🚀 main()
+---------------------------------------------
+1️⃣ Option 1: Securely delete a file
+   - Takes file path and password from user.
+   - Deletes file using secure_delete().
+   - Encrypts the log using encrypt_log().
+
+2️⃣ Option 2: View encrypted deletion log
+   - Asks for password and decrypts log using decrypt_log().
+
+🔚 If an invalid option is selected, it displays an error message.
+
+---------------------------------------------
+🧠 Summary
+---------------------------------------------
+This tool demonstrates secure file deletion by overwriting, deleting,
+logging the activity, and encrypting the log with a password-derived key.
+The log can only be viewed later using the correct password.
